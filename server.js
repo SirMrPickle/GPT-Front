@@ -4,10 +4,10 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+let server; // This will store the server instance
+
 // Middleware
 app.use(cors());
-
-// Serve static files (CSS, images, etc.)
 app.use(express.static(path.join(__dirname)));
 
 // Serve index.html
@@ -27,7 +27,27 @@ app.post('/api/query', (req, res) => {
     res.json(`You searched for: "${query}"`);
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+// POST route to start the server (Advertising button)
+app.post('/start', (req, res) => {
+    if (server) {
+        res.json({ message: 'Server is already running.' });
+    } else {
+        server = app.listen(port, () => {
+            console.log(`Server started at http://localhost:${port}`);
+            res.json({ message: 'Server started successfully.' });
+        });
+    }
+});
+
+// POST route to stop the server (Business button)
+app.post('/stop', (req, res) => {
+    if (server) {
+        server.close(() => {
+            console.log('Server stopped.');
+            res.json({ message: 'Server stopped successfully.' });
+            server = null; // Clear the server instance
+        });
+    } else {
+        res.json({ message: 'Server is not running.' });
+    }
 });

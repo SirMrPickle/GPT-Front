@@ -48,15 +48,5 @@ setup_node_project() {
     npm install express cors body-parser
 }
 
-# Step 5: Start the Node.js server
-start_server() {
-    echo "Starting the Node.js server..."
-    node server.js
-}
-
-# Execute the functions in order
-install_nodejs
-create_project_directory
-download_files
-setup_node_project
-start_server
+# No server auto-start, the server will be started by the "Advertising" button
+echo "Setup completed. The server can be started and stopped using the webpage buttons."

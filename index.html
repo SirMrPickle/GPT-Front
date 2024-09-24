@@ -59,9 +59,11 @@
 
     <div class="bottom-nav">
         <div class="nav-left">
-            <a href="#" class="b-nav-left">Advertising</a>
-            <a href="#" class="b-nav-left">Business</a>
-            <a href="#" class="b-nav-left">How Search works</a>
+            <div class="nav-left">
+                <a href="#" class="b-nav-left advertising">Start Server</a>
+                <a href="#" class="b-nav-left business">Server Stopped</a>
+                <a href="#" class="b-nav-left">How Search works</a>
+            </div>
         </div>
         <div class="nav-center">
             <a href="#" class="b-nav-mid">Our third decade of climate action: join us</a>
@@ -74,42 +76,46 @@
     </div>
 
     <script>
-        async function sendQueryToBackend(query) {
-            try {
-                const response = await fetch('http://localhost:3000/api/query', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ query })
-                });
-                return await response.json();
-            } catch (error) {
-                console.error('Error:', error);
-                return "Error fetching response from the backend.";
+        // Helper function to update button text
+        function updateButtonStatus(isRunning) {
+            const adButton = document.querySelector('.b-nav-left.advertising');
+            const bizButton = document.querySelector('.b-nav-left.business');
+
+            if (isRunning) {
+                adButton.textContent = 'Server Running';
+                bizButton.textContent = 'Stop Server';
+            } else {
+                adButton.textContent = 'Start Server';
+                bizButton.textContent = 'Server Stopped';
             }
         }
 
-        document.getElementById('searchForm').addEventListener('submit', async function (event) {
-            event.preventDefault();
-            const query = document.getElementById('queryInput').value.trim();
-            if (!query) return alert("Please enter a query.");
-
-            const responseContainer = document.getElementById('responseContainer');
-            responseContainer.style.display = 'block';
-            document.getElementById('responseText').textContent = 'Loading...';
-
-            const response = await sendQueryToBackend(query);
-            document.getElementById('responseText').textContent = response;
+        // Event handler for "Advertising" button (Start Server)
+        document.querySelector('.b-nav-left.advertising').addEventListener('click', async function () {
+            try {
+                const response = await fetch('http://localhost:3000/start', { method: 'POST' });
+                const result = await response.json();
+                alert(result.message);
+                updateButtonStatus(true);
+            } catch (error) {
+                console.error('Error starting server:', error);
+            }
         });
 
-        document.getElementById('luckyButton').addEventListener('click', function () {
-            alert("Feeling lucky feature is not supported for ChatGPT queries.");
+        // Event handler for "Business" button (Stop Server)
+        document.querySelector('.b-nav-left.business').addEventListener('click', async function () {
+            try {
+                const response = await fetch('http://localhost:3000/stop', { method: 'POST' });
+                const result = await response.json();
+                alert(result.message);
+                updateButtonStatus(false);
+            } catch (error) {
+                console.error('Error stopping server:', error);
+            }
         });
 
-        document.querySelector('.nav-ico-dark').addEventListener('click', function () {
-            const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            body.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
-        });
+        // Initialize button status
+        updateButtonStatus(false);
     </script>
 </body>
 
