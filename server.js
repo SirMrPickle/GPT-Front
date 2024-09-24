@@ -1,25 +1,29 @@
-// server.js
-
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
-
+const path = require('path');
 const app = express();
 const port = 3000;
 
 // Middleware
-app.use(cors());  // To allow cross-origin requests
-app.use(bodyParser.json());  // To parse incoming JSON data
+app.use(cors());
+
+// Serve static files (CSS, images, etc.)
+app.use(express.static(path.join(__dirname)));
+
+// Serve index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // POST route to handle search queries
+app.use(express.json());
 app.post('/api/query', (req, res) => {
     const { query } = req.body;
-    
+
     if (!query) {
         return res.status(400).json({ error: "Query is required" });
     }
 
-    // Here, we are just echoing back the query. You can add real logic later.
     res.json(`You searched for: "${query}"`);
 });
 
