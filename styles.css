@@ -1,0 +1,211 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body[data-theme='light'] {
+    background-color: white;
+    color: black;
+}
+
+body[data-theme='dark'] {
+    background-color: rgb(32, 33, 36);
+    color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px;
+    height: 20px;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+nav a,
+.nav-ico,
+.nav-ico-dark {
+    padding: 3px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+body[data-theme='light'] nav a {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+body[data-theme='dark'] nav a {
+    color: rgba(255, 255, 255, 0.87);
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.nav-ico,
+.nav-ico-dark {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+body[data-theme='dark'] .nav-ico,
+body[data-theme='dark'] .nav-ico-dark {
+    filter: invert(1);
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 65vh;
+}
+
+.logo {
+    width: 272px;
+    height: 150px;
+    margin-top: -200px;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+}
+
+.text-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    height: 40px;
+    border-radius: 25px;
+    border: 1px solid #dfe1e5;
+    background-color: transparent;
+}
+
+body[data-theme='dark'] .text-input {
+    background-color: rgb(32, 33, 36);
+    border-color: rgb(96, 99, 103);
+}
+
+.text-input:hover {
+    box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+}
+
+.text-input img {
+    width: 18px;
+    height: 18px;
+}
+
+.text-input input[type="text"] {
+    flex-grow: 1;
+    border: none;
+    font-size: 16px;
+    background-color: transparent;
+    color: inherit;
+    outline: none;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 22px;
+    padding: 6px;
+}
+
+.divider {
+    width: 10px;
+    height: auto;
+    display: inline-block;
+}
+
+input[type="submit"],
+input[type="button"] {
+    padding: 8px 16px;
+    background-color: #f8f9fa;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+body[data-theme='dark'] input[type="submit"],
+body[data-theme='dark'] input[type="button"] {
+    background-color: rgb(48, 49, 53);
+    color: white;
+}
+
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background-color: #f8f9fa;
+    border-color: #dadce0;
+}
+
+.response-container {
+    margin: 20px auto;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f1f3f4;
+    max-width: 600px;
+}
+
+body[data-theme='dark'] .response-container {
+    background-color: #1e1e1e;
+}
+
+/* Bottom Navigation Bar Styling */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(23, 23, 23);
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+body[data-theme='light'] .bottom-nav {
+    background-color: #f1f1f1;
+}
+
+/* Left Navigation Links */
+.nav-left {
+    display: flex;
+    gap: 30px; /* Space between links */
+    margin-left: 25px; /* Left margin for the first group */
+}
+
+/* Center Navigation Link */
+.nav-center {
+    flex-grow: 1; /* Take remaining space */
+    display: flex;
+    justify-content: center; /* Center the middle link */
+}
+
+/* Right Navigation Links */
+.nav-right {
+    display: flex;
+    gap: 30px; /* Space between links */
+    margin-right: 25px; /* Right margin for the last group */
+}
+
+/* Common Styles for Links */
+.bottom-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+body[data-theme='light'] .bottom-nav a {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.bottom-nav a:hover {
+    text-decoration: underline;
+}

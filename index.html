@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="https://www.google.com/favicon.ico">
+</head>
+
+<body data-theme="dark">
+    <header>
+        <nav>
+            <div class="nav-left">
+                <a href="#">About</a>
+                <a href="#">Store</a>
+            </div>
+            <div class="nav-right">
+                <a href="#">Gmail</a>
+                <a href="#">Images</a>
+                <img src="./images/dots.png" alt="dots" class="nav-ico">
+                <img src="./images/dark.png" alt="dark mode toggle" class="nav-ico-dark">
+            </div>
+        </nav>
+    </header>
+
+    <main class="search-container">
+        <a href="https://www.google.com"><img src="./images/logo-Google.png" class="logo" alt="Google logo"></a>
+
+        <form class="search-form" id="searchForm">
+            <div class="text-input">
+                <img class="left-icon" src="./images/search-icon.svg" alt="search icon">
+                <input type="text" id="queryInput" name="q">
+                <img class="right-icon" src="./images/mic.png" alt="microphone">
+                <img class="cam-icon" src="./images/camera.png" alt="camera">
+            </div>
+            <div class="buttons">
+                <input type="submit" value="Google Search">
+                <a class="divider"></a>
+                <input type="button" value="I'm Feeling Lucky" id="luckyButton">
+            </div>
+        </form>
+
+        <div id="responseContainer" class="response-container" style="display:none;">
+            <p id="responseText"></p>
+        </div>
+    </main>
+
+    <div class="bottom-nav">
+        <div class="nav-left">
+            <a href="#" class="b-nav-left">Advertising</a>
+            <a href="#" class="b-nav-left">Business</a>
+            <a href="#" class="b-nav-left">How Search works</a>
+        </div>
+        <div class="nav-center">
+            <a href="#" class="b-nav-mid">Our third decade of climate action: join us</a>
+        </div>
+        <div class="nav-right">
+            <a href="#" class="b-nav-right">Privacy</a>
+            <a href="#" class="b-nav-right">Terms</a>
+            <a href="#" class="b-nav-right">Settings</a>
+        </div>
+    </div>
+    
+
+    <script>
+        async function sendQueryToBackend(query) {
+            try {
+                const response = await fetch('http://localhost:3000/api/query', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query })
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Error:', error);
+                return "Error fetching response from the backend.";
+            }
+        }
+
+        document.getElementById('searchForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const query = document.getElementById('queryInput').value.trim();
+            if (!query) return alert("Please enter a query.");
+
+            const responseContainer = document.getElementById('responseContainer');
+            responseContainer.style.display = 'block';
+            document.getElementById('responseText').textContent = 'Loading...';
+
+            const response = await sendQueryToBackend(query);
+            document.getElementById('responseText').textContent = response;
+        });
+
+        document.getElementById('luckyButton').addEventListener('click', function () {
+            alert("Feeling lucky feature is not supported for ChatGPT queries.");
+        });
+
+        document.querySelector('.nav-ico-dark').addEventListener('click', function () {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            body.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+        });
+    </script>
+</body>
+
+</html>
