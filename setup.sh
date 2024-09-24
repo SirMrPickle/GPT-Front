@@ -48,5 +48,5 @@ setup_node_project() {
     npm install express cors body-parser
 }
 
-# No server auto-start, the server will be started by the "Advertising" button
+# No server auto-start, the server will be started by the "Start Chat" button
 echo "Setup completed. The server can be started and stopped using the webpage buttons."

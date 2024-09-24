@@ -59,11 +59,9 @@
 
     <div class="bottom-nav">
         <div class="nav-left">
-            <div class="nav-left">
-                <a href="#" class="b-nav-left advertising">Start Server</a>
-                <a href="#" class="b-nav-left business">Server Stopped</a>
-                <a href="#" class="b-nav-left">How Search works</a>
-            </div>
+            <a href="#" class="b-nav-left" id="start-chat">Start Chat</a>
+            <a href="#" class="b-nav-left" id="stop-chat">Stop Chat</a>
+            <a href="#" class="b-nav-left">How Search works</a>
         </div>
         <div class="nav-center">
             <a href="#" class="b-nav-mid">Our third decade of climate action: join us</a>
@@ -78,20 +76,20 @@
     <script>
         // Helper function to update button text
         function updateButtonStatus(isRunning) {
-            const adButton = document.querySelector('.b-nav-left.advertising');
-            const bizButton = document.querySelector('.b-nav-left.business');
+            const startChatButton = document.querySelector('#start-chat');
+            const stopChatButton = document.querySelector('#stop-chat');
 
             if (isRunning) {
-                adButton.textContent = 'Server Running';
-                bizButton.textContent = 'Stop Server';
+                startChatButton.textContent = 'Server Running';
+                stopChatButton.textContent = 'Stop Chat';
             } else {
-                adButton.textContent = 'Start Server';
-                bizButton.textContent = 'Server Stopped';
+                startChatButton.textContent = 'Start Chat';
+                stopChatButton.textContent = 'Server Stopped';
             }
         }
 
-        // Event handler for "Advertising" button (Start Server)
-        document.querySelector('.b-nav-left.advertising').addEventListener('click', async function () {
+        // Event handler for "Start Chat" button
+        document.getElementById('start-chat').addEventListener('click', async function () {
             try {
                 const response = await fetch('http://localhost:3000/start', { method: 'POST' });
                 const result = await response.json();
@@ -102,8 +100,8 @@
             }
         });
 
-        // Event handler for "Business" button (Stop Server)
-        document.querySelector('.b-nav-left.business').addEventListener('click', async function () {
+        // Event handler for "Stop Chat" button
+        document.getElementById('stop-chat').addEventListener('click', async function () {
             try {
                 const response = await fetch('http://localhost:3000/stop', { method: 'POST' });
                 const result = await response.json();
