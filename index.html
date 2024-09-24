@@ -93,10 +93,11 @@
             try {
                 const response = await fetch('http://localhost:3000/start', { method: 'POST' });
                 const result = await response.json();
-                alert(result.message);
+                alert(result.message);  // Show the server's response message
                 updateButtonStatus(true);
             } catch (error) {
                 console.error('Error starting server:', error);
+                alert('Failed to start the server.');
             }
         });
 
@@ -105,10 +106,11 @@
             try {
                 const response = await fetch('http://localhost:3000/stop', { method: 'POST' });
                 const result = await response.json();
-                alert(result.message);
+                alert(result.message);  // Show the server's response message
                 updateButtonStatus(false);
             } catch (error) {
                 console.error('Error stopping server:', error);
+                alert('Failed to stop the server.');
             }
         });
 

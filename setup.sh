@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Stop script execution on any error
+set -e
+
 # Function to check if a command exists
 command_exists() {
     command -v "$1" >/dev/null 2>&1
@@ -48,5 +51,20 @@ setup_node_project() {
     npm install express cors body-parser
 }
 
-# No server auto-start, the server will be started by the "Start Chat" button
+starte_node_server() {
+    echo "Starting server..."
+    node /google-search-backend/server.js
+}
+
+# Step 5: Call all functions in the correct order
+run_setup() {
+    install_nodejs
+    create_project_directory
+    download_files
+    setup_node_project
+}
+
+# Run the setup
+run_setup
+
 echo "Setup completed. The server can be started and stopped using the webpage buttons."

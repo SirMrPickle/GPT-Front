@@ -4,7 +4,7 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-let server;  // Server instance
+let server;  // Server instance to control start/stop
 
 // Middleware
 app.use(cors());
@@ -27,7 +27,7 @@ app.post('/api/query', (req, res) => {
     res.json(`You searched for: "${query}"`);
 });
 
-// POST route to start the server (Start Chat button)
+// POST route to "start" the server (simulated by responding to requests)
 app.post('/start', (req, res) => {
     if (server) {
         res.json({ message: 'Server is already running.' });
@@ -39,15 +39,20 @@ app.post('/start', (req, res) => {
     }
 });
 
-// POST route to stop the server (Stop Chat button)
+// POST route to "stop" the server (simulated by stopping responses)
 app.post('/stop', (req, res) => {
     if (server) {
         server.close(() => {
             console.log('Server stopped.');
-            res.json({ message: 'Server stopped successfully.' });
             server = null;
+            res.json({ message: 'Server stopped successfully.' });
         });
     } else {
         res.json({ message: 'Server is not running.' });
     }
+});
+
+// Start the server when this script runs
+server = app.listen(port, () => {
+    console.log(`Server initially started at http://localhost:${port}`);
 });
