@@ -36,8 +36,7 @@
             <div class="text-input">
                 <img class="mag-icon"
                     src="https://raw.githubusercontent.com/SirMrPickle/GPT-Front/refs/heads/main/images/search-icon.svg"
-                    alt="search icon"
-                    class="grey-glass">
+                    alt="search icon" class="grey-glass">
                 <input type="text" id="queryInput" name="q">
                 <img class="mic-icon"
                     src="https://raw.githubusercontent.com/SirMrPickle/GPT-Front/refs/heads/main/images/mic.png"
@@ -61,7 +60,7 @@
     <div class="bottom-nav">
         <div class="nav-left">
             <a href="#" class="b-nav-left" id="start-chat">Advertising</a>
-            <a href="#" class="b-nav-left" id="stop-chat">Buisness</a>
+            <a href="#" class="b-nav-left" id="stop-chat">Stop Server</a>
             <a href="#" class="b-nav-left">How Search works</a>
         </div>
         <div class="nav-center">
@@ -109,17 +108,6 @@
                 logo.src = 'https://raw.githubusercontent.com/SirMrPickle/GPT-Front/refs/heads/main/images/logo-Light.png';
             }
         });
-
-        // Helper function to update button text
-        function updateButtonStatus(isRunning) {
-            const stopChatButton = document.querySelector('#stop-chat');
-
-            if (isRunning) {
-                stopChatButton.textContent = 'Stop Chat';
-            } else {
-                stopChatButton.textContent = 'Buisness';
-            }
-        }
 
         // Event handler for "Stop Chat" button
         document.getElementById('stop-chat').addEventListener('click', async function () {
