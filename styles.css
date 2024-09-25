@@ -177,22 +177,28 @@ body[data-theme='light'] .bottom-nav {
 /* Left Navigation Links */
 .nav-left {
     display: flex;
-    gap: 30px; /* Space between links */
-    margin-left: 25px; /* Left margin for the first group */
+    gap: 30px;
+    /* Space between links */
+    margin-left: 25px;
+    /* Left margin for the first group */
 }
 
 /* Center Navigation Link */
 .nav-center {
-    flex-grow: 1; /* Take remaining space */
+    flex-grow: 1;
+    /* Take remaining space */
     display: flex;
-    justify-content: center; /* Center the middle link */
+    justify-content: center;
+    /* Center the middle link */
 }
 
 /* Right Navigation Links */
 .nav-right {
     display: flex;
-    gap: 30px; /* Space between links */
-    margin-right: 25px; /* Right margin for the last group */
+    gap: 30px;
+    /* Space between links */
+    margin-right: 25px;
+    /* Right margin for the last group */
 }
 
 /* Common Styles for Links */
@@ -208,4 +214,14 @@ body[data-theme='light'] .bottom-nav a {
 
 .bottom-nav a:hover {
     text-decoration: underline;
+}
+
+.mag-icon, .mic-icon, .cam-icon {
+    width:20px;
+    height:20px;
+    padding:10px;
+}
+
+.grey-glass {
+    color:rgb(154, 160, 165)
 }

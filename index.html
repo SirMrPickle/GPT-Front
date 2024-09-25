@@ -8,7 +8,7 @@
     <link rel="icon" type="image/x-icon" href="https://www.google.com/favicon.ico">
 </head>
 
-<body data-theme="dark">
+<body data-theme="light">
     <header>
         <nav>
             <div class="nav-left">
@@ -21,24 +21,25 @@
                 <img src="https://raw.githubusercontent.com/SirMrPickle/GPT-Front/refs/heads/main/images/dots.png"
                     alt="dots" class="nav-ico">
                 <img src="https://raw.githubusercontent.com/SirMrPickle/GPT-Front/refs/heads/main/images/dark.png"
-                    alt="dark mode toggle" class="nav-ico-dark">
+                    alt="dark mode toggle" class="nav-ico-dark" id="darkModeToggle">
             </div>
         </nav>
     </header>
 
     <main class="search-container">
         <a href="https://www.google.com">
-            <img src="https://raw.githubusercontent.com/SirMrPickle/GPT-Front/refs/heads/main/images/logo-Google.png"
+            <img src="https://raw.githubusercontent.com/SirMrPickle/GPT-Front/refs/heads/main/images/logo-Light.png"
                 class="logo" alt="Google logo">
         </a>
 
-        <form class="search-form" id="searchForm">
+        <form class="search-form" id="searchForm" onsubmit="return handleSearch(event);">
             <div class="text-input">
-                <img class="left-icon"
+                <img class="mag-icon"
                     src="https://raw.githubusercontent.com/SirMrPickle/GPT-Front/refs/heads/main/images/search-icon.svg"
-                    alt="search icon">
+                    alt="search icon"
+                    class="grey-glass">
                 <input type="text" id="queryInput" name="q">
-                <img class="right-icon"
+                <img class="mic-icon"
                     src="https://raw.githubusercontent.com/SirMrPickle/GPT-Front/refs/heads/main/images/mic.png"
                     alt="microphone">
                 <img class="cam-icon"
@@ -59,8 +60,8 @@
 
     <div class="bottom-nav">
         <div class="nav-left">
-            <a href="#" class="b-nav-left" id="start-chat">Start Chat</a>
-            <a href="#" class="b-nav-left" id="stop-chat">Stop Chat</a>
+            <a href="#" class="b-nav-left" id="start-chat">Advertising</a>
+            <a href="#" class="b-nav-left" id="stop-chat">Buisness</a>
             <a href="#" class="b-nav-left">How Search works</a>
         </div>
         <div class="nav-center">
@@ -74,32 +75,51 @@
     </div>
 
     <script>
-        // Helper function to update button text
-        function updateButtonStatus(isRunning) {
-            const startChatButton = document.querySelector('#start-chat');
-            const stopChatButton = document.querySelector('#stop-chat');
-
-            if (isRunning) {
-                startChatButton.textContent = 'Server Running';
-                stopChatButton.textContent = 'Stop Chat';
-            } else {
-                startChatButton.textContent = 'Start Chat';
-                stopChatButton.textContent = 'Server Stopped';
+        async function handleSearch(event) {
+            event.preventDefault();  // Prevent default form submission
+            const query = document.getElementById('queryInput').value;
+            try {
+                const response = await fetch('http://localhost:3000/api/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query }),
+                });
+                const result = await response.json();
+                document.getElementById('responseText').innerText = result;
+                document.getElementById('responseContainer').style.display = 'block';
+            } catch (error) {
+                console.error('Error with search:', error);
             }
         }
 
-        // Event handler for "Start Chat" button
-        document.getElementById('start-chat').addEventListener('click', async function () {
-            try {
-                const response = await fetch('http://localhost:3000/start', { method: 'POST' });
-                const result = await response.json();
-                alert(result.message);  // Show the server's response message
-                updateButtonStatus(true);
-            } catch (error) {
-                console.error('Error starting server:', error);
-                alert('Failed to start the server.');
+        // Dark mode toggle
+        document.getElementById('darkModeToggle').addEventListener('click', function () {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+
+            // Change logo based on the new theme
+            const logo = document.getElementById('logo');
+            if (newTheme === 'dark') {
+                logo.src = 'https://raw.githubusercontent.com/SirMrPickle/GPT-Front/refs/heads/main/images/logo-Dark.png';
+            } else {
+                logo.src = 'https://raw.githubusercontent.com/SirMrPickle/GPT-Front/refs/heads/main/images/logo-Light.png';
             }
         });
+
+        // Helper function to update button text
+        function updateButtonStatus(isRunning) {
+            const stopChatButton = document.querySelector('#stop-chat');
+
+            if (isRunning) {
+                stopChatButton.textContent = 'Stop Chat';
+            } else {
+                stopChatButton.textContent = 'Buisness';
+            }
+        }
 
         // Event handler for "Stop Chat" button
         document.getElementById('stop-chat').addEventListener('click', async function () {

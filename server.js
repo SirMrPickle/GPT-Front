@@ -54,5 +54,10 @@ app.post('/stop', (req, res) => {
 
 // Start the server when this script runs
 server = app.listen(port, () => {
-    console.log(`Server initially started at http://localhost:${port}`);
+    console.log(`Server initialized at http://localhost:${port}`);
+    import('open').then((open) => {
+        open.default(`http://localhost:${port}`);
+    }).catch((err) => {
+        console.error('Failed to open browser:', err);
+    });
 });
